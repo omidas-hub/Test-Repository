@@ -20,4 +20,4 @@ jobs:
         run: pip install pandas
 
       - name: Run Python script
-        run: python python/test_automation.py
+        run: python test_automation.py
