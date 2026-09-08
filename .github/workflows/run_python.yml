@@ -2,6 +2,11 @@ name: Run Python Cleaning
 
 on:
   workflow_dispatch:
+    schedule:
+    - cron: '30 1 * * *'
+
+permissions:
+  contents: write    
 
 jobs:
   run-python:
@@ -21,3 +26,10 @@ jobs:
 
       - name: Run Python script
         run: python test_automation.py
+      - name: Save cleaned data to repository
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add cleaned_data.csv
+          git diff --cached --quiet || git commit -m "Update cleaned data"
+          git push
